@@ -16,7 +16,7 @@
   "targets": {
     "mi-band7-intl": {
       "module": {
-        "page": { "pages": ["page/index", "page/availability", "page/parking", "page/history", "page/settings", "page/menu"] }
+        "page": { "pages": ["page/index", "page/new-parking", "page/availability", "page/parking", "page/history", "page/settings", "page/menu"] }
       },
       "platforms": [{ "name": "xiaomi-smart-band-7-international", "deviceSource": 263 }],
       "designWidth": 192
