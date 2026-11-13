@@ -3,7 +3,7 @@ let handler = null;
 export function startDeviceTransport(onMessage) {
   handler = onMessage;
   try {
-    if (typeof messaging !== 'undefined' && messaging.peerSocket) messaging.peerSocket.addListener(messaging.peerSocket.event.MESSAGE, (event) => { try { handler && handler(decodeMessage(event.data)); } catch (_) {} });
+    if (typeof messaging !== 'undefined' && messaging.peerSocket) messaging.peerSocket.addListener('message', (event) => { try { handler && handler(decodeMessage(event.data)); } catch (_) {} });
   } catch (_) {}
 }
 export function stopDeviceTransport() { handler = null; }
