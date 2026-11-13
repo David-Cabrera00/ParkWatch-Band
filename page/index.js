@@ -1,4 +1,4 @@
-import { bg, text, button, go, appState, service } from '../shared/ui';
+import { bg, text, button, go, appState } from '../shared/ui';
 Page({
   build() {
     bg(); const s = appState();
@@ -9,6 +9,5 @@ Page({
     button(218, 'Disponibilidad', () => go('page/availability'));
     button(278, 'Mi parqueo', () => go('page/parking'), 0x183650);
     button(338, 'Menú', () => go('page/menu'), 0x333333);
-    try { service().getAvailability().then((data) => { s.availability = data; if (typeof globalThis.__PARQUEO_REFRESH__ === 'function') globalThis.__PARQUEO_REFRESH__(); }); } catch (_) {}
   }
 });
