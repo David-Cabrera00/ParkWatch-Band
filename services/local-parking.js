@@ -1,6 +1,12 @@
 const FILE = 'parking-data.json';
 const EMPTY = { active: null, history: [] };
 
+function integerInRange(value, min, max) { return Number.isInteger(value) && value >= min && value <= max; }
+
+export function validateParkingFields(fields) {
+  return !!fields && integerInRange(fields.floor, 0, 20) && integerInRange(fields.row, 1, 50) && integerInRange(fields.space, 1, 200) && integerInRange(fields.distance, 0, 999);
+}
+
 function encode(value) {
   const str = JSON.stringify(value);
   const bytes = new Uint8Array(str.length);
@@ -42,6 +48,7 @@ export function saveParking(value) {
 }
 
 export function createParkingRecord(fields, now = Date.now()) {
+  if (!validateParkingFields(fields)) throw new Error('Invalid parking location');
   return { id: 'local-' + now, floor: fields.floor, row: fields.row, space: fields.space, distance: fields.distance, startedAt: now, status: 'ACTIVE' };
 }
 

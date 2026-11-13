@@ -21,7 +21,7 @@ Page({
     step(112, 'Fila', state.row, 1, 50, (v) => { state.row = v; redraw(); });
     step(164, 'Puesto', state.space, 1, 200, (v) => { state.space = v; redraw(); });
     step(216, 'Metros', state.distance, 0, 999, (v) => { state.distance = v; redraw(); });
-    button(292, 'Guardar ubicación', () => { const next = { active: createParkingRecord(state), history: loadParking().history }; if (saveParking(next)) { draft = { floor: 1, row: 1, space: 1, distance: 0 }; appState().activeParking = next.active; go('page/parking'); } });
+    button(292, 'Guardar ubicación', () => { try { const next = { active: createParkingRecord(state), history: loadParking().history }; if (saveParking(next)) { draft = { floor: 1, row: 1, space: 1, distance: 0 }; appState().activeParking = next.active; go('page/parking'); } } catch (_) {} });
     button(398, 'Cancelar', () => { draft = { floor: 1, row: 1, space: 1, distance: 0 }; go('page/index'); }, 0x333333);
   }
 });
