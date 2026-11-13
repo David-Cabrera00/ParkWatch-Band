@@ -1,17 +1,22 @@
 # Parqueo Band 7
 
-Mini app Zepp OS independiente para Xiaomi Smart Band 7 International (`deviceSource: 263`). Incluye pantallas de inicio, disponibilidad, parqueo activo, historial y configuración.
+Mini app Zepp OS independiente para Xiaomi Smart Band 7 International (`deviceSource: 263`). Su flujo principal es offline: guardar piso, fila, puesto y distancia aproximada en metros; consultar el parqueo activo; finalizarlo; y conservar un historial local.
 
 ## Estado actual
 
-- Modo `DEMO` funcional sin backend, con datos claramente identificados en configuración.
+- Flujo offline prioritario, persistido mediante `hmFS` en la pulsera.
+- Modo `DEMO` y adaptador backend conservados como base futura, pero el arranque no depende de `app-side` ni Bluetooth.
 - Adaptador `services/parking-service.js` preparado para modo `REAL` mediante `baseUrl` y `fetch`.
 - Protocolo versionado para comunicación pulsera/teléfono con `PING/PONG`, respuestas, errores, `requestId`, timeout/deduplicación en la capa de servicio.
 - No se inventa una conversión `.bin`: `npm run export:band7` solo devuelve un BIN si Zeus realmente lo produce.
 
 ## Arquitectura
 
-`page/` contiene las pantallas Zepp; `services/` separa la lógica de negocio; `mocks/` contiene datos DEMO; `app-side/` es el adaptador de teléfono; `shared/` contiene transporte y protocolo.
+`page/` contiene las pantallas Zepp; `services/local-parking.js` guarda el estado offline; `services/parking-service.js` conserva la integración backend futura; `shared/` contiene UI, transporte y protocolo.
+
+## Flujo offline
+
+Desde Inicio selecciona `Guardar parqueo` y ajusta con `+`/`−` el piso, fila, puesto y metros. Al guardar, la información permanece en la pulsera. `Mi parqueo` muestra la ubicación activa y `Finalizar parqueo` la mueve al historial local, conservando hasta 20 registros.
 
 El contrato REAL esperado por el adaptador es configurable y no se asume que exista en este workspace: `GET /availability`, `GET /parking/active`, `GET /parking/history` y `POST /parking/:id/finish`. Ajusta las rutas si tu backend documenta otras.
 
