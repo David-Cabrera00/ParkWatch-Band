@@ -5,7 +5,8 @@ Mini app Zepp OS independiente para Xiaomi Smart Band 7 International (`deviceSo
 ## Estado actual
 
 - Flujo offline prioritario, persistido mediante `hmFS` en la pulsera.
-- Modo `DEMO` y adaptador backend conservados como base futura, pero el arranque no depende de `app-side` ni Bluetooth.
+- Modo `DEMO` y adaptador backend conservados como base futura; el flujo de parqueo no depende de una respuesta del backend.
+- Transporte BLE/app-side basado en el `MessageBuilder` probado por `watchdrip-zepp-band7`, conservando su handshake y target Band 7.
 - Adaptador `services/parking-service.js` preparado para modo `REAL` mediante `baseUrl` y `fetch`.
 - Protocolo versionado para comunicación pulsera/teléfono con `PING/PONG`, respuestas, errores, `requestId`, timeout/deduplicación en la capa de servicio.
 - No se inventa una conversión `.bin`: `npm run export:band7` solo devuelve un BIN si Zeus realmente lo produce.
